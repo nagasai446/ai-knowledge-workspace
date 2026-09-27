@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.db.session import get_db
 from app.api.auth import router as auth_router
+from app.api.workspace import router as workspace_router
 from app.core.config import settings
 
 
@@ -39,3 +40,4 @@ async def database_health_check(db:Session=Depends(get_db)):
     }
 
 app.include_router(auth_router)
+app.include_router(workspace_router)
