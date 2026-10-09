@@ -1,23 +1,25 @@
-import { useState, useEffect } from "react";
-import { checkHealth } from "./services/api";
+import { BrowserRouter } from "react-router-dom";
 
-function App(){
-  const [message,setMessage] = useState("Checking Backend");
+import { QueryProvider } from "./app/providers/query-provider";
 
-  useEffect(()=>{
-    checkHealth().then((data)=>{
-      setMessage(data.message);
-    }).catch(()=>{
-      setMessage("Backend Connection Failed");
-    })
-  }, []);
+import { StoreProvider } from "./app/providers/store-provider";
 
+import { AuthProvider } from "./features/auth/auth-provider";
+
+import { AppRouter } from "./app/router/app-router";
+
+function App() {
   return (
-    <div>
-      <h1>AI Knowledge Base</h1>
-      <p>{message}</p>
-    </div>
-  )
+    <BrowserRouter>
+      <StoreProvider>
+        <QueryProvider>
+          <AuthProvider>
+            <AppRouter />
+          </AuthProvider>
+        </QueryProvider>
+      </StoreProvider>
+    </BrowserRouter>
+  );
 }
 
 export default App;
