@@ -21,6 +21,7 @@ export function createWorkspace(data: CreateWorkspaceRequest) {
   }) as Promise<Workspace>;
 }
 
+
 export function updateWorkspace(id: number, data: UpdatedWorkspaceRequest) {
   return apiRequest(`/api/v1/workspaces/${id}`, {
     method: "POST",

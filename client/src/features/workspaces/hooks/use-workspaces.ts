@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { createWorkspace, updateWorkspace, deleteWorkspace, getWorkspaces } from "../api/workspace-api";
+import { createWorkspace, updateWorkspace, deleteWorkspace, getWorkspaces, getWorkspace } from "../api/workspace-api";
 
 import type { CreateWorkspaceRequest, UpdatedWorkspaceRequest } from "../workspace-types";
 
@@ -26,6 +26,14 @@ export function useCreateWorkspace(){
             })
         }
     })
+}
+
+export function useWorkspace(workspaceId: number) {
+  return useQuery({
+    queryKey: ["workspaces", workspaceId],
+    queryFn: () => getWorkspace(workspaceId),
+    enabled: Number.isInteger(workspaceId) && workspaceId > 0,
+  });
 }
 
 export function useUpdateWorkspace(){
